@@ -18,11 +18,8 @@
 	<mvc:annotation-driven />
 
 
-	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/util" />
-		<property name="username" value="root" />
-		<property name="password" value="root" />
+	<bean id="myDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="xcelenergyDS" />
 	</bean>
 
 	<bean id="mySessionFactory"
@@ -32,7 +29,7 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>
-					com.bootcampjava.electricityservice.models.registration.Customer
+					com.xcelenergy.electricityservice.models.registration.Customer
 				</value>
 			</list>
 		</property>
@@ -52,7 +49,7 @@
 	</bean>
 
 	<context:component-scan
-		base-package="com.bootcampjava.electricityservice.controllers.registration" />
+		base-package="com.xcelenergy.electricityservice.controllers.registration" />
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
@@ -64,20 +61,20 @@
 	</bean>
 
 	<bean id="regDAO"
-		class="com.bootcampjava.electricityservice.daos.registration.RegistrationDAO" />
-	<bean id="custClient"
-		class="com.bootcampjava.electricityservice.clients.restclient.CustomerClient"></bean>
-	<bean id="serviceClient"
-		class="com.bootcampjava.electricityservice.clients.soapclient.ServicePlanClient"></bean>
+		class="com.xcelenergy.electricityservice.daos.registration.RegistrationDAO" />
+	<bean id="customerServiceConsumer"
+		class="com.xcelenergy.electricityservice.clients.restclient.CustomerServiceConsumer"></bean>
+	<bean id="servicePlanConsumer"
+		class="com.xcelenergy.electricityservice.clients.soapclient.ServicePlanConsumer"></bean>
 	<bean id="regSercice"
-		class="com.bootcampjava.electricityservice.services.registration.RegistrationService" />
+		class="com.xcelenergy.electricityservice.services.registration.RegistrationService" />
 
 	<bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory"
 		p:brokerURL="tcp://localhost:61616" />
 
-	<context:component-scan base-package="com.bootcampjava.electricityservice.jms"></context:component-scan>
+	<context:component-scan base-package="com.xcelenergy.electricityservice.jms"></context:component-scan>
 
-	<bean id="messageSender" class="com.bootcampjava.electricityservice.jms.MessageSender"></bean>
+	<bean id="messageSender" class="com.xcelenergy.electricityservice.jms.MessageSender"></bean>
 
 	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
 		<constructor-arg name="connectionFactory" ref="connectionFactory"></constructor-arg>

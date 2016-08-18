@@ -10,20 +10,17 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class MessegeDAO {
 
 	ApplicationContext context = new ClassPathXmlApplicationContext("contextservlet.xml");
-	SessionFactory mySessionFactory = (SessionFactory) context.getBean("mySessionFactory");
+	SessionFactory sessionFactory = (SessionFactory) context.getBean("mySessionFactory");
 
 	public boolean updateCustomer(int custId, int serviceId) {
-		Session session = mySessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 
-		Transaction tx = session.beginTransaction();
+	//	Transaction tx = session.beginTransaction();
 
 		Query query = session.createQuery("update Customer set serviceid = :serviceId where id = :custId");
 		query.setParameter("serviceId", serviceId);
 		query.setParameter("custId", custId);
 		int result = query.executeUpdate();
-		System.out.println(result);
-		tx.commit();
-		
 
 		if (result == 1)
 			return true;

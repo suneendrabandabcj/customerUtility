@@ -5,6 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Repository;
 
 import com.cmsenergy.electricityservice.models.Customer;
@@ -13,21 +19,18 @@ import com.cmsenergy.electricityservice.util.JdbcUtil;
 @Repository
 public class CustomerDAO {
 	
-	JdbcUtil util = new JdbcUtil();
-	Customer cust = new Customer();	
+	JdbcUtil jdbcutil = new JdbcUtil();
+		
 	
-	/*ApplicationContext context = new ClassPathXmlApplicationContext("context-servlet.xml");
-	SessionFactory mySessionFactory = (SessionFactory) context.getBean("mySessionFactory");*/
+	/**
+	 * return Customer for given customer ID
+	 * @param id
+	 * @return
+	 */
 	public  Customer getCustomerById(int id){
 		
-		
-		/*Session session = mySessionFactory.openSession();
-		System.out.println("session opened");
-		Customer customer = (Customer) session.load(Customer.class, id);
-		System.out.println(customer.getFirstname());
-		return customer;*/
-		
-		Connection con = util.createMySqlConnection();
+		Customer cust = new Customer();
+		Connection con = jdbcutil.createMySqlConnection();
 		try {
 			Statement st = con.createStatement();
 			System.out.println(id);
@@ -54,6 +57,34 @@ public class CustomerDAO {
 		
 		return cust;			
 			
+	}
+	
+	
+	/**
+	 * 
+	 * Update Customer Service plan
+	 * @param custId
+	 * @param serviceId
+	 * @return
+	 */
+	public boolean updateCustomer(int custId, int serviceId) {
+		
+		ApplicationContext context = new ClassPathXmlApplicationContext("contextservlet.xml");
+		SessionFactory sessionFactory = (SessionFactory) context.getBean("mySessionFactory");
+		
+		Session session = sessionFactory.getCurrentSession();
+
+		Transaction tx = session.beginTransaction();
+
+		Query query = session.createQuery("update Customer set serviceid = :serviceId where id = :custId");
+		query.setParameter("serviceId", serviceId);
+		query.setParameter("custId", custId);
+		int result = query.executeUpdate();
+		tx.commit();
+		if (result == 1)
+			return true;
+		else
+			return false;
 	}
 	
 }

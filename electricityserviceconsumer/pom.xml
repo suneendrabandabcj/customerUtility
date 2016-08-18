@@ -30,15 +30,15 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		
+
 		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
-<dependency>
-    <groupId>org.mockito</groupId>
-    <artifactId>mockito-core</artifactId>
-    <version>1.10.19</version>
-</dependency>
-		
-		
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>1.10.19</version>
+		</dependency>
+
+
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
 			<artifactId>jersey-client</artifactId>
@@ -63,7 +63,7 @@
 			<artifactId>jersey-core</artifactId>
 			<version>1.19</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
@@ -272,13 +272,13 @@
 							<sourceRoot>src/main/java</sourceRoot>
 							<wsdlOptions>
 								<wsdlOption>
-									<wsdl>${basedir}/src/main/resources/test.wsdl</wsdl>
+									<wsdl>${basedir}/src/main/resources/customerService.wsdl</wsdl>
 									<extraargs>
-                    <extraarg>-client</extraarg>
-                    <extraarg>-verbose</extraarg>
-                    <extraarg>-p</extraarg>
-                    <extraarg>http://serviceplan.soapservice.webservices.services.electricityservice.cmsenergy.com/=com.bootcampjava.electricityservice.soapservice</extraarg>
-                  </extraargs>									
+										<extraarg>-client</extraarg>
+										<extraarg>-verbose</extraarg>
+										<extraarg>-p</extraarg>
+										<extraarg>http://serviceplan.soapservice.webservices.services.electricityservice.cmsenergy.com/=com.xcelenergy.electricityservice.soapservice</extraarg>
+									</extraargs>
 								</wsdlOption>
 							</wsdlOptions>
 						</configuration>
@@ -288,8 +288,8 @@
 					</execution>
 				</executions>
 			</plugin>
-			
-			
+
+
 		</plugins>
 		<finalName>${project.artifactId}</finalName>
 	</build>
