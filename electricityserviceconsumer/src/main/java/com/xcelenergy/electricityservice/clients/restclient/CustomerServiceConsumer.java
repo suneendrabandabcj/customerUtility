@@ -7,6 +7,11 @@ import com.sun.jersey.api.client.WebResource;
 
 public class CustomerServiceConsumer {
 	
+	/**
+	 * get Customer details from given customer id using REST call
+	 * @param id
+	 * @return
+	 */
 	public Customer getCustomerById(int id){
 		
 		
@@ -24,4 +29,5 @@ public class CustomerServiceConsumer {
 		Customer customer  = response.getEntity(Customer.class);	
 	  		return customer;
 	}	
+	
 }

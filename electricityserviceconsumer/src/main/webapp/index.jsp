@@ -106,7 +106,7 @@ input[type=password] {
 			<input type="password" name="password" id="name" placeholder="Password" required /> <br>
 			<br>
 
-			<button class="btn btn-info btn-warning pull-left" type="submit"
+			<button class="btn btn-info" type="submit"
 				name="register" value="register">Register</button>
 		</form>
 	</div>

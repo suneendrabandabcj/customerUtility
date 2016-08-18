@@ -7,14 +7,12 @@ import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
 import com.cmsenergy.electricityservice.daos.CustomerDAO;
-import com.cmsenergy.electricityservice.daos.MessegeDAO;
 
 public class MyMessageListener implements MessageListener {
 
 	@Override
 	public void onMessage(Message m) {
 		TextMessage message = (TextMessage) m;
-		MessegeDAO msgDAO = new MessegeDAO();
 		CustomerDAO customerDao = new CustomerDAO();
 		try {
 			
